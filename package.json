@@ -1,0 +1,24 @@
+{
+  "name": "bridge-contact-options",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/citrafriska/bridge-contact-options.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/citrafriska/bridge-contact-options/issues"
+  },
+  "homepage": "https://github.com/citrafriska/bridge-contact-options#readme",
+  "devDependencies": {
+    "jest": "^27.4.5"
+  }
+}
