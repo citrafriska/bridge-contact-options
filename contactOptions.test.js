@@ -62,34 +62,49 @@ test("Free contacts has already been offered one or more VIP intros", () => {
     (contact) => contact.contactOption === "Free"
   );
 
-  const freeContacts = contacts.filter(
-    (contact) => contact.name === frees.name
-  );
+  const freeContacts = [];
+  contacts.map((contact) => {
+    contactOptions.map((option) => {
+      if (contact.name === option.name) {
+        if (contact.introsOffered.vip >= 1) {
+          freeContacts.push({
+            ...contact,
+            contactOption: option.contactOption,
+          });
+        }
+      }
+    });
+  });
 
   freeContacts.map((contact, i) => {
-    expect(contact.introsOffered.vip).toBeGreaterThanOrEqual(0);
-    expect(contact.introsOffered.free).toBeGreaterThanOrEqual(0);
+    expect(contact.contactOption).toEqual("Free");
   });
 });
 
 test("Free contacts NOT have the highest ranking of all contacts who have NOT yet been offered a VIP intro", () => {
   const contactOptions = new ContactOptions(contacts).all();
-  const frees = contactOptions.filter(
-    (contact) => contact.contactOption === "Free"
-  );
+  const noVips = [];
+  contacts.map((contact) => {
+    contactOptions.map((option) => {
+      if (contact.name === option.name) {
+        if (contact.introsOffered.vip === 0) {
+          noVips.push({
+            ...option,
+            introsOffered: contact.introsOffered,
+          });
+        }
+      }
+    });
+  });
 
-  frees.sort((a, b) => {
+  noVips.sort((a, b) => {
     return a.ranking - b.ranking;
   });
 
-  const freeContacts = contacts.filter(
-    (contact) => contact.name === frees.name
-  );
-
-  const length = freeContacts.length - 1;
-  freeContacts.map((contact, i) => {
+  const length = noVips.length - 1;
+  noVips.map((contact, i) => {
     if (i < length) {
-      expect(contact.ranking).toBeLessThan(freeContacts[length]);
+      expect(contact.ranking).toBeLessThan(noVips[length].ranking);
     }
   });
 });
