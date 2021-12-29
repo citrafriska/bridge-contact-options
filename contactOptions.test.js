@@ -58,7 +58,6 @@ test("VIP contacts have NOT yet been offered a VIP intro", () => {
 
 test("Free contacts has already been offered one or more VIP intros", () => {
   const contactOptions = new ContactOptions(contacts).all();
-
   const freeContacts = [];
   contacts.map((contact) => {
     contactOptions.map((option) => {
